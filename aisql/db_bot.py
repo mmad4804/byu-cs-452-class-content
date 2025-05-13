@@ -71,14 +71,14 @@ strategies = {
 }
 
 questions = [
-    "Which are the most awarded dogs?",
-    "Which dogs have multiple owners?",
-    "Which people have multiple dogs?",
-    "What are the top 3 cities represented?",
-    "What are the names and cities of the dogs who have awards?",
-    "Who has more than one phone number?",
-    "Who doesn't have a way for us to text them?",
-    "Will we have a problem texting any of the previous award winners?"
+    "Which non-members have attended church more than two times?",
+    "What is the most common finding source?",
+    "Which non-members have a return date set up within the next week?",
+    "Which missionary companionship has the most non-members they're teaching?",
+    "Which members have participated in the most lessons?",
+    "Which ward has the highest attendance?",
+    "Are there any inactive members who have not been contacted in the last 6 months?",
+    "Are there any non-members progressing towards baptism?"
     # "I need insert sql into my tables can you provide good unique data?"
 ]
 
