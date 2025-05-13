@@ -1,0 +1,78 @@
+1. What is the most common finding source?
+
+SELECT finding_source, COUNT(*) AS source_count
+FROM NonMember
+GROUP BY finding_source
+ORDER BY source_count DESC
+LIMIT 1;
+
+[('Referral', 5)]
+The most common finding source is "Referral" with 5 instances.
+
+
+2. Which non-members have a return date set up within the next week?
+
+SELECT nm.nonMember_id, p.first_name, p.last_name, lt.return_date
+FROM NonMember nm
+JOIN LessonTaught lt ON nm.nonMember_id = lt.nonMember_id
+JOIN Person p ON nm.nonMember_id = p.person_id
+WHERE lt.return_date BETWEEN DATE('now') AND DATE('now', '+7 days');
+
+[]
+No non-members have a return date set within the next week.
+
+
+3. Are there any non-members progressing towards baptism?
+
+SELECT nm.nonMember_id, p.first_name, p.last_name
+FROM NonMember nm
+JOIN Person p ON nm.nonMember_id = p.person_id
+JOIN Person p ON nm.nonMember_id = p.person_id
+JOIN Person p ON nm.nonMember_id = p.person_id
+JOIN Person p ON nm.nonMember_id = p.person_id
+JOIN Person p ON nm.nonMember_id = p.person_id
+JOIN Person p ON nm.nonMember_id = p.person_id
+JOIN CommitmentStatus cs ON nm.nonMember_id = cs.nonMember_id
+JOIN CommitmentStatus cs ON nm.nonMember_id = cs.nonMember_id
+WHERE cs.commitment_status = 'progressing towards baptism';
+
+[]
+It seems there are currently no non-members progressing towards baptism.
+
+
+4. Which members have participated in the most lessons?
+
+SELECT m.member_id, COUNT(lt.lesson_id) AS lesson_count
+FROM Member m
+JOIN LessonTaught lt ON m.member_id = lt.member_id
+GROUP BY m.member_id
+ORDER BY lesson_count DESC
+LIMIT 1;
+
+[(16, 4)]
+Member 16 has participated in the most lessons, attending 4.
+
+
+5. Which ward has the highest attendance?
+
+SELECT w.ward_id, w.ward_name, COUNT(*) as attendance_count
+FROM ChurchAttendance ca
+JOIN Ward w ON ca.ward_id = w.ward_id
+GROUP BY w.ward_id
+ORDER BY attendance_count DESC
+LIMIT 1;
+
+[(1, 'Springfield Ward', 5)]
+Springfield Ward has the highest attendance with 5.
+
+
+6. Are there any inactive members who have not been contacted in the last 6 months?
+
+SELECT m.member_id, p.first_name, p.last_name
+FROM Member m
+JOIN Person p ON m.member_id = p.person_id
+LEFT JOIN Contact c ON p.person_id = c.person_id AND c.contact_date >= date('now', '-6 months')
+WHERE m.status = 'inactive' AND c.contact_date IS NULL;
+
+[]
+No, there are no inactive members who haven't been contacted in the last 6 months.
